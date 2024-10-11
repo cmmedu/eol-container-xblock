@@ -1656,7 +1656,7 @@ p.case-title {
     top: 0px;
     width: var(--max-width);
     background-repeat: no-repeat;
-    height: 100%;
+    height: 100px;
     background-image: url(https://static.sumaysigue.uchile.cl/cmmeduformacion/produccion/assets/img/cap_SP_Sistema_header.png);
     background-size: contain;
     z-index: 100;

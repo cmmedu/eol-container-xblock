@@ -19,19 +19,19 @@ function EolContainerXBlock(runtime, element, settings) {
 		var containerid = "container_" + settings.location;
 		renderMathForSpecificElements(containerid);
 	});
-}
 
-function renderMathForSpecificElements(id) {
-	//console.log("Render Mathjax in " + id);
-	if (typeof MathJax !== "undefined") {
-		var $container = $('#' + id);
-		if ($container.length) {
-			$container.find('.exptop, .expmid, .expbot').each(function (index, contaelem) {
-				MathJax.Hub.Queue(["Typeset", MathJax.Hub, contaelem]);
-			});
+	function renderMathForSpecificElements(id) {
+		//console.log("Render Mathjax in " + id);
+		if (typeof MathJax !== "undefined") {
+			var $container = $('#' + id);
+			if ($container.length) {
+				$container.find('.exptop, .expmid, .expbot').each(function (index, contaelem) {
+					MathJax.Hub.Queue(["Typeset", MathJax.Hub, contaelem]);
+				});
+			}
+		} else {
+			console.warn("MathJax no está cargado.");
 		}
-	} else {
-		console.warn("MathJax no está cargado.");
 	}
 }
 
