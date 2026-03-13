@@ -1599,6 +1599,38 @@ p.case-title {
 }
 
 
+/***** REDFID Lenguaje ******/
+
+/* Contenedor tiene class="Tipo-RedFid len" (mismo elemento), luego .expmid es hijo */
+.eolcontainer_block .Caso-RedFid.len .expmid,
+.eolcontainer_block .Exploremos-RedFid.len .expmid,
+.eolcontainer_block .Observacion-RedFid.len .expmid,
+.eolcontainer_block .Lenguaje-RedFid.len .expmid,
+.eolcontainer_block .Problema-RedFid.len .expmid,
+.eolcontainer_block .Instruccion-RedFid.len .expmid,
+.eolcontainer_block .Situacion-RedFid.len .expmid,
+.eolcontainer_block .Video-RedFid.len .expmid {
+
+    border-color: #d3d3d3;
+
+}
+/***** REDFID Parvularia ******/
+
+
+/* Contenedor tiene class="Tipo-RedFid par" (mismo elemento) */
+.eolcontainer_block .Caso-RedFid.par .expmid,
+.eolcontainer_block .Exploremos-RedFid.par .expmid,
+.eolcontainer_block .Observacion-RedFid.par .expmid,
+.eolcontainer_block .Lenguaje-RedFid.par .expmid,
+.eolcontainer_block .Problema-RedFid.par .expmid,
+.eolcontainer_block .Instruccion-RedFid.par .expmid,
+.eolcontainer_block .Situacion-RedFid.par .expmid,
+.eolcontainer_block .Video-RedFid.par .expmid {
+
+    border-color: #d3d3d3;
+
+}
+
 /*****************************/
 /*** Capsulas Sumo Primero ***/
 /***************************/
