@@ -1,0 +1,98 @@
+[
+    {
+        "proyecto": "Suma y Sigue",
+        "subproyecto": {
+            "basica": [
+                "Exploremos",
+                "Observacion",
+                "Problema",
+                "Instruccion",
+                "Respuesta",
+                "Contenido"
+            ],
+            "media": [
+                "Exploremos-Media",
+                "Observacion-Media",
+                "Problema-Media",
+                "Instruccion-Media",
+                "Respuesta-Media",
+                "Objetivos-Media",
+                "Video-Media",
+                "Caso-Media",
+                "Pedagogica-Media",
+                "Disciplinar-Media"
+            ],
+            "M24": [
+                "Observacion-M24",
+                "Contenido-M24",
+                "Instruccion-M24",
+                "Video-M24",
+                "Didactica-M24",
+                "Disciplinar-M24",
+                "Lenguaje-M24",
+                "Aprendizaje-M24",
+                "Pedagogica-M24"
+            ]
+        }
+    },
+    {
+        "proyecto": "RedFid",
+        "subproyecto": {
+            "matematicas": [
+                "Caso-RedFid",
+                "Exploremos-RedFid",
+                "Observacion-RedFid",
+                "Lenguaje-RedFid",
+                "Problema-RedFid",
+                "Instruccion-RedFid",
+                "Situacion-RedFid",
+                "Video-RedFid"
+            ],
+            "lenguaje": [
+                "Caso-RedFid",
+                "Exploremos-RedFid",
+                "Observacion-RedFid",
+                "Lenguaje-RedFid",
+                "Problema-RedFid",
+                "Instruccion-RedFid",
+                "Situacion-RedFid",
+                "Video-RedFid"
+            ],
+            "parvularia": [
+                "Caso-RedFid",
+                "Exploremos-RedFid",
+                "Observacion-RedFid",
+                "Lenguaje-RedFid",
+                "Problema-RedFid",
+                "Instruccion-RedFid",
+                "Situacion-RedFid",
+                "Video-RedFid"
+            ]
+        }
+    },
+    {
+        "proyecto": "Sumo Primero",
+        "subproyecto": {
+            "sumoprimero": [
+                "Activacion-SP",
+                "Analisis-SP",
+                "Animalito-SP",
+                "Profundizacion-SP",
+                "Retroalimentacion-SP",
+                "Sistematizacion-SP"
+            ]
+        }
+    },
+    {
+        "proyecto": "Generica",
+        "subproyecto": {
+            "generica": [
+                "Generica",
+                "Reflexionemos",
+                "Vinculacion",
+                "Curricular",
+                "Didactica"
+            ]
+        }
+    }
+]

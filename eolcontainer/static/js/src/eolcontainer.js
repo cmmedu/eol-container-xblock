@@ -53,6 +53,8 @@ function toggleContainer(type, id) {
 	$('#' + type + id + ' .expmid').animate({
 		height: "toggle"
 	}, 1000);
+
+	renderMathForSpecificElements("container_" + id);
 }
 
 
