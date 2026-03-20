@@ -1,3 +1,4 @@
+import json
 import pkg_resources
 
 from django.template import Context, Template
@@ -25,24 +26,12 @@ class EolContainerXBlock(StudioEditableXBlockMixin, XBlock):
         scope=Scope.settings,
     )
 
-    # TYPE
+    # TYPE (text field: author can type/paste or use the 3 cascading selects in Studio to fill it)
     type = String(
-        display_name = _("Tipo"),
-        help = _("Selecciona el tipo de capsula"),
-        default = "Exploremos",
-        values = ["Generica","Contenido", "Observacion",
-                  "Exploremos", "Instruccion",
-                  "Respuesta", "Problema",
-                  "Observacion-M24", "Contenido-M24", "Instruccion-M24", "Video-M24", "Didactica-M24", "Disciplinar-M24", "Lenguaje-M24", "Aprendizaje-M24", "Pedagogica-M24",
-                  "Exploremos-Media", 
-                  "Caso-Media", "Problema-Media", 
-                  "Instruccion-Media", "Observacion-Media", 
-                  "Objetivos-Media", "Pedagogica-Media", "Disciplinar-Media", "Video-Media", "Reflexionemos",
-                  "Vinculacion","Curricular","Didactica",
-                  "Caso-RedFid","Exploremos-RedFid","Observacion-RedFid","Lenguaje-RedFid","Instruccion-RedFid","Situacion-RedFid","Video-RedFid",
-                  "Activacion-SP", "Analisis-SP", "Animalito-SP", "Profundizacion-SP", "Retroalimentacion-SP","Sistematizacion-SP"
-                  ],
-        scope = Scope.settings
+        display_name=_("Tipo de cápsula"),
+        help=_("Escriba o pegue el tipo, o use los desplegables abajo para seleccionarlo."),
+        default="Exploremos",
+        scope=Scope.settings,
     )
 
     # Text
@@ -155,6 +144,28 @@ class EolContainerXBlock(StudioEditableXBlockMixin, XBlock):
             'xblock': self,
             'location': str(self.location).split('@')[-1]
         }
+
+    def studio_view(self, context=None):
+        """Studio editor: type is a text field; 3 cascading selects only overwrite it."""
+        from xblock.fields import Scope
+        context = {'fields': []}
+        for field_name in self.editable_fields:
+            field = self.fields[field_name]
+            if field.scope not in (Scope.content, Scope.settings):
+                continue
+            field_info = self._make_field_info(field_name, field)
+            if field_info is not None:
+                context["fields"].append(field_info)
+        order_json = self.resource_string("static/json/order.json")
+        capsule_order = json.loads(order_json)
+        template = self.render_template('static/html/studio_edit.html', context)
+        frag = Fragment(template)
+        frag.add_javascript(self.resource_string("static/js/src/studio_edit.js"))
+        frag.initialize_js(
+            'StudioEditableXBlockMixin',
+            json_args={'capsule_order': capsule_order},
+        )
+        return frag
 
     def render_template(self, template_path, context):
         template_str = self.resource_string(template_path)
