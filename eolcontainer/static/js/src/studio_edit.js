@@ -6,12 +6,11 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
     var tinyMceAvailable = (typeof $ !== 'undefined' && typeof $.fn.tinymce !== 'undefined');
     var datepickerAvailable = (typeof $ !== 'undefined' && typeof $.fn.datepicker !== 'undefined');
     var handlerUrl = runtime.handlerUrl(element, 'submit_studio_edits');
-    var allContainerTypes = [];
 
     $(element).find('.field-data-control').each(function () {
         var $field = $(this);
         var $wrapper = $field.closest('li');
-        var $resetButton = $wrapper.find('button.setting-clear');
+        var $resetButton = $wrapper.find('button.setting-clear').not('.eolcontainer-cascade-row-btn');
         var type = $wrapper.data('cast');
         fields.push({
             name: $wrapper.data('field-name'),
@@ -103,22 +102,19 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
 
     function studio_submit(data) {
         if ($.isFunction(runtime.notify)) runtime.notify('save', { state: 'start' });
-        $.post(handlerUrl, JSON.stringify(data)).done(function () {
-            if ($.isFunction(runtime.notify)) runtime.notify('save', { state: 'start' });
-            $.post(handlerUrl, JSON.stringify(data))
-                .done(function () {
-                    if ($.isFunction(runtime.notify)) runtime.notify('save', { state: 'end' });
-                })
-                .fail(function () {
-                    if ($.isFunction(runtime.notify)) {
-                        runtime.notify('error', {
-                            title: 'Error al guardar en el xblock',
-                            message: 'No se pudo guardar la configuración del xblock.',
-                        });
-                        runtime.notify('save', { state: 'end' });
-                    }
-                });
-        });
+        $.post(handlerUrl, JSON.stringify(data))
+            .done(function () {
+                if ($.isFunction(runtime.notify)) runtime.notify('save', { state: 'end' });
+            })
+            .fail(function () {
+                if ($.isFunction(runtime.notify)) {
+                    runtime.notify('error', {
+                        title: 'Error al guardar en el xblock',
+                        message: 'No se pudo guardar la configuración del xblock.',
+                    });
+                    runtime.notify('save', { state: 'end' });
+                }
+            });
     }
 
     $('.save-button', element).on('click', function (e) {
@@ -152,9 +148,12 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
      if ($proyecto.length) {
          let $subproyecto = $(element).find('#eolcontainer-subproyecto');
          let $tipo = $(element).find('#eolcontainer-tipo');
+         let $clearProyecto = $(element).find('#eolcontainer-clear-proyecto');
+         let $clearSubproyecto = $(element).find('#eolcontainer-clear-subproyecto');
+         let $clearTipoSelect = $(element).find('#eolcontainer-clear-tipo-select');
          let $typeInput = $(element).find('#xb-field-edit-type');
          let $typeWrapper = $typeInput.closest('li');
-         let $typeReset = $typeWrapper.find('button.setting-clear');
+         let $typeFieldReset = $typeWrapper.find('.eolcontainer-type-input-reset');
          let defaultOptionLabel = '-- Seleccionar --';
  
          function resetSelect($select) {
@@ -259,12 +258,31 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
              }
          }
  
+         function resetAllCascadeSelects() {
+             $proyecto.val('');
+             resetSelect($subproyecto);
+             fillTipoAll();
+             $tipo.val('');
+         }
+
+         function clearSubproyectoOnly() {
+             var idx = $proyecto.val();
+             $subproyecto.val('');
+             if (idx === '') {
+                 resetSelect($subproyecto);
+                 fillTipoAll();
+             } else {
+                 fillTipoForProject(parseInt(idx, 10));
+             }
+             $tipo.val('');
+         }
+
          function setTypeFromSelect() {
              var v = $tipo.val();
              if (v) {
                  $typeInput.val(v);
                  $typeWrapper.addClass('is-set');
-                 $typeReset.removeClass('inactive').addClass('active');
+                 $typeFieldReset.removeClass('inactive').addClass('active');
              }
          }
  
@@ -286,10 +304,27 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
              }
          }
 
-         allContainerTypes = collectAllTiposUnique();
+        let allContainerTypes = collectAllTiposUnique();
  
          fillProyecto();
          preselectFromTypeValue();
+
+         $typeFieldReset.on('click', function () {
+             resetAllCascadeSelects();
+         });
+
+         $clearProyecto.on('click', function (e) {
+             e.preventDefault();
+             resetAllCascadeSelects();
+         });
+         $clearSubproyecto.on('click', function (e) {
+             e.preventDefault();
+             clearSubproyectoOnly();
+         });
+         $clearTipoSelect.on('click', function (e) {
+             e.preventDefault();
+             $tipo.val('');
+         });
  
          $proyecto.on('change', function() {
              var idx = $(this).val();

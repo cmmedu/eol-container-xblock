@@ -2,8 +2,16 @@
 <style>
   .eolcontainer-type-helpers { margin-bottom: 12px; }
   .eolcontainer-cascade-row { display: block; margin-bottom: 10px; }
+  .eolcontainer-cascade-row-inner {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    max-width: 360px;
+  }
+  .eolcontainer-cascade-field { flex: 1; min-width: 0; }
   .eolcontainer-cascade-row .eolcontainer-cascade-label { display: block; font-weight: normal; font-size: 0.9em; margin-bottom: 4px; }
   .eolcontainer-cascade-row .eolcontainer-cascade { display: block; width: 100%; max-width: 320px; }
+  .eolcontainer-cascade-row-btn { position: static; flex-shrink: 0; margin-bottom: 2px; }
   .eolcontainer-cascade-tip { display: block; margin-top: 8px; }
 </style>
 <div class="editor-with-buttons">
@@ -22,22 +30,58 @@
             {% if field.name == 'type' %}
               <div class="eolcontainer-type-helpers">
                 <div class="eolcontainer-cascade-row">
-                  <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-proyecto">Proyecto</label>
-                  <select id="eolcontainer-proyecto" class="eolcontainer-cascade">
-                    <option value="">-- Seleccionar --</option>
-                  </select>
+                  <div class="eolcontainer-cascade-row-inner">
+                    <div class="eolcontainer-cascade-field">
+                      <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-proyecto">Proyecto</label>
+                      <select id="eolcontainer-proyecto" class="eolcontainer-cascade">
+                        <option value="">-- Seleccionar --</option>
+                      </select>
+                    </div>
+                    <button
+                      id="eolcontainer-clear-proyecto"
+                      class="action setting-clear active eolcontainer-cascade-row-btn"
+                      type="button"
+                      data-tooltip="Limpiar proyecto"
+                    >
+                      <i class="icon fa fa-undo"></i><span class="sr">Limpiar proyecto</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="eolcontainer-cascade-row">
-                  <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-subproyecto">Subproyecto</label>
-                  <select id="eolcontainer-subproyecto" class="eolcontainer-cascade">
-                    <option value="">-- Seleccionar --</option>
-                  </select>
+                  <div class="eolcontainer-cascade-row-inner">
+                    <div class="eolcontainer-cascade-field">
+                      <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-subproyecto">Subproyecto</label>
+                      <select id="eolcontainer-subproyecto" class="eolcontainer-cascade">
+                        <option value="">-- Seleccionar --</option>
+                      </select>
+                    </div>
+                    <button
+                      id="eolcontainer-clear-subproyecto"
+                      class="action setting-clear active eolcontainer-cascade-row-btn"
+                      type="button"
+                      data-tooltip="Limpiar subproyecto"
+                    >
+                      <i class="icon fa fa-undo"></i><span class="sr">Limpiar subproyecto</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="eolcontainer-cascade-row">
-                  <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-tipo">Tipo</label>
-                  <select id="eolcontainer-tipo" class="eolcontainer-cascade">
-                    <option value="">-- Seleccionar --</option>
-                  </select>
+                  <div class="eolcontainer-cascade-row-inner">
+                    <div class="eolcontainer-cascade-field">
+                      <label class="label setting-label eolcontainer-cascade-label" for="eolcontainer-tipo">Tipo</label>
+                      <select id="eolcontainer-tipo" class="eolcontainer-cascade">
+                        <option value="">-- Seleccionar --</option>
+                      </select>
+                    </div>
+                    <button
+                      id="eolcontainer-clear-tipo-select"
+                      class="action setting-clear active eolcontainer-cascade-row-btn"
+                      type="button"
+                      data-tooltip="Limpiar tipo (lista)"
+                    >
+                      <i class="icon fa fa-undo"></i><span class="sr">Limpiar tipo</span>
+                    </button>
+                  </div>
                 </div>
                 <span class="tip setting-help eolcontainer-cascade-tip">Al elegir un tipo aquí se sobrescribe el campo de texto.</span>
               </div>
@@ -118,7 +162,7 @@
             {% endif %}
 
             {% if field.allow_reset %}
-              <button class="action setting-clear {% if field.is_set %}active{%else%}inactive{% endif %}" type="button" name="setting-clear" value="{% trans "Clear" %}" data-tooltip="{% trans "Clear" %}">
+              <button class="action setting-clear {% if field.name == 'type' %}eolcontainer-type-input-reset{% endif %} {% if field.is_set %}active{%else%}inactive{% endif %}" type="button" name="setting-clear" value="{% trans "Clear" %}" data-tooltip="{% trans "Clear" %}">
                 <i class="icon fa fa-undo"></i><span class="sr">{% trans "Clear Value" %}</span>
               </button>
             {% endif %}
