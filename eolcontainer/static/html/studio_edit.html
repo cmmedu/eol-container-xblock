@@ -5,12 +5,25 @@
   .eolcontainer-cascade-row-inner {
     display: flex;
     align-items: flex-end;
-    gap: 8px;
-    max-width: 360px;
+    gap: 10px;
+    width: 100%;
+    max-width: 560px;
+    box-sizing: border-box;
   }
-  .eolcontainer-cascade-field { flex: 1; min-width: 0; }
+  /* flex-basis 0% evita que el bloque se encoja al ancho intrínseco del <select> */
+  .eolcontainer-cascade-field {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
   .eolcontainer-cascade-row .eolcontainer-cascade-label { display: block; font-weight: normal; font-size: 0.9em; margin-bottom: 4px; }
-  .eolcontainer-cascade-row .eolcontainer-cascade { display: block; width: 100%; max-width: 320px; }
+  /* Studio a veces limita select; forzar ancho al contenedor flex */
+  .eolcontainer-type-helpers select.eolcontainer-cascade {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    box-sizing: border-box;
+  }
   .eolcontainer-cascade-row-btn { position: static; flex-shrink: 0; margin-bottom: 2px; }
   .eolcontainer-cascade-tip { display: block; margin-top: 8px; }
 </style>
