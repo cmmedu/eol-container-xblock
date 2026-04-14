@@ -234,16 +234,23 @@ function StudioEditableXBlockMixin(runtime, element, settings) {
          function fillSubproyecto(projIndex) {
              resetSelect($subproyecto);
              let sub = order[projIndex] && order[projIndex].subproyecto;
+             let subKeys = [];
              if (sub) {
                  for (let key in sub) {
                      if (sub.hasOwnProperty(key)) {
+                         subKeys.push(key);
                          $subproyecto.append(
                              $('<option></option>').val(key).text(key)
                          );
                      }
                  }
              }
-             fillTipoForProject(projIndex);
+             if (subKeys.length === 1) {
+                 $subproyecto.val(subKeys[0]);
+                 fillTipo(projIndex, subKeys[0]);
+             } else {
+                 fillTipoForProject(projIndex);
+             }
          }
  
          function fillTipo(projIndex, subKey) {
